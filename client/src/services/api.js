@@ -70,4 +70,19 @@ export const getUserBookmarks = (clerkUserId, params = {}) => api.get(`/bookmark
 export const checkBookmark = (postId, clerkUserId) => api.get(`/bookmarks/${postId}/check/${clerkUserId}`);
 export const removeBookmark = (bookmarkId, clerkUserId) => api.delete(`/bookmarks/${bookmarkId}`, { params: { clerkUserId } });
 
+// Like services
+export const toggleLike = (postId, clerkUserId) => api.post(`/posts/${postId}/like`, { clerkUserId });
+export const getPostLikes = (postId, clerkUserId) => api.get(`/posts/${postId}/likes`, { params: { clerkUserId } });
+
+// Admin services
+export const getAdminStats = (clerkUserId) => api.get('/admin/stats', { params: { clerkUserId } });
+export const getAdminPosts = (clerkUserId, params = {}) => api.get('/admin/posts', { params: { ...params, clerkUserId } });
+export const updatePostApproval = (postId, clerkUserId, approvalStatus, rejectionReason) =>
+  api.put(`/admin/posts/${postId}/approve`, { clerkUserId, approvalStatus, rejectionReason });
+export const getAdminUsers = (clerkUserId, params = {}) => api.get('/admin/users', { params: { ...params, clerkUserId } });
+export const updateUserRole = (userId, clerkUserId, role) => api.put(`/admin/users/${userId}/role`, { clerkUserId, role });
+export const getAdminEbooks = (clerkUserId, params = {}) => api.get('/admin/ebooks', { params: { ...params, clerkUserId } });
+export const getAdminPurchases = (clerkUserId, params = {}) => api.get('/admin/purchases', { params: { ...params, clerkUserId } });
+export const getAdminSubscriptions = (clerkUserId, params = {}) => api.get('/admin/subscriptions', { params: { ...params, clerkUserId } });
+
 export default api;

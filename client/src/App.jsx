@@ -14,6 +14,7 @@ import EbooksPage from './pages/EbooksPage';
 import EbookDetailPage from './pages/EbookDetailPage';
 import PaymentVerifyPage from './pages/PaymentVerifyPage';
 import ProfilePage from './pages/ProfilePage';
+import AdminDashboard from './pages/AdminDashboard';
 import UserSync from './components/UserSync';
 
 function App() {
@@ -43,6 +44,9 @@ function App() {
 
           {/* User Profile */}
           <Route path="profile" element={<ProfilePage />} />
+
+          {/* Admin Dashboard */}
+          <Route path="admin" element={<AdminDashboard />} />
         </Route>
       </Routes>
     </Router>

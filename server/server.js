@@ -17,6 +17,7 @@ const ebookRoutes = require('./routes/ebooks');
 const purchaseRoutes = require('./routes/purchases');
 const subscriptionRoutes = require('./routes/subscriptions');
 const bookmarkRoutes = require('./routes/bookmarks');
+const adminRoutes = require('./routes/admin');
 
 // Import middleware
 const errorHandler = require('./middleware/errorHandler');
@@ -64,6 +65,7 @@ app.use('/api/ebooks', ebookRoutes);
 app.use('/api/purchases', purchaseRoutes);
 app.use('/api/subscriptions', subscriptionRoutes);
 app.use('/api/bookmarks', bookmarkRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Root route
 app.get('/', (req, res) => {
