@@ -10,6 +10,10 @@ import EnterprisePage from './pages/EnterprisePage';
 import PricingPage from './pages/PricingPage';
 import CreatePostPage from './pages/CreatePostPage';
 import EditPostPage from './pages/EditPostPage';
+import EbooksPage from './pages/EbooksPage';
+import EbookDetailPage from './pages/EbookDetailPage';
+import PaymentVerifyPage from './pages/PaymentVerifyPage';
+import ProfilePage from './pages/ProfilePage';
 import UserSync from './components/UserSync';
 
 function App() {
@@ -23,10 +27,22 @@ function App() {
           <Route path="features" element={<FeaturesPage />} />
           <Route path="enterprise" element={<EnterprisePage />} />
           <Route path="pricing" element={<PricingPage />} />
+
+          {/* Blog Routes */}
           <Route path="blog" element={<BlogPage />} />
           <Route path="blog/create" element={<CreatePostPage />} />
           <Route path="blog/:id" element={<PostPage />} />
           <Route path="/blog/edit/:id" element={<EditPostPage />} />
+
+          {/* E-book Routes */}
+          <Route path="ebooks" element={<EbooksPage />} />
+          <Route path="ebooks/:id" element={<EbookDetailPage />} />
+
+          {/* Payment Routes */}
+          <Route path="payment/verify" element={<PaymentVerifyPage />} />
+
+          {/* User Profile */}
+          <Route path="profile" element={<ProfilePage />} />
         </Route>
       </Routes>
     </Router>

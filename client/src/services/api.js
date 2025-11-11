@@ -41,4 +41,33 @@ api.interceptors.response.use(
 export const getCategories = () => api.get('/categories');
 export const createCategory = (category) => api.post('/categories', category);
 
+// Ebook services
+export const getEbooks = (params = {}) => api.get('/ebooks', { params });
+export const getEbook = (id) => api.get(`/ebooks/${id}`);
+export const createEbook = (ebook) => api.post('/ebooks', ebook);
+export const updateEbook = (id, ebook) => api.put(`/ebooks/${id}`, ebook);
+export const deleteEbook = (id) => api.delete(`/ebooks/${id}`);
+export const checkEbookOwnership = (id, clerkUserId) => api.get(`/ebooks/${id}/ownership/${clerkUserId}`);
+export const getUserPurchases = (clerkUserId, params = {}) => api.get(`/ebooks/my-purchases/${clerkUserId}`, { params });
+export const getEbookCategories = () => api.get('/ebooks/categories');
+
+// Purchase services
+export const initializePurchase = (data) => api.post('/purchases/initialize', data);
+export const verifyPurchase = (reference) => api.post('/purchases/verify', { reference });
+export const downloadEbook = (purchaseId, clerkUserId) => api.get(`/purchases/${purchaseId}/download`, { params: { clerkUserId } });
+export const getPurchaseHistory = (clerkUserId, params = {}) => api.get(`/purchases/history/${clerkUserId}`, { params });
+
+// Subscription services
+export const getSubscription = (clerkUserId) => api.get(`/subscriptions/${clerkUserId}`);
+export const initializeSubscription = (data) => api.post('/subscriptions/initialize', data);
+export const verifySubscription = (reference) => api.post('/subscriptions/verify', { reference });
+export const cancelSubscription = (clerkUserId) => api.post('/subscriptions/cancel', { clerkUserId });
+export const useCredits = (clerkUserId, amount) => api.post('/subscriptions/use-credits', { clerkUserId, amount });
+
+// Bookmark services
+export const toggleBookmark = (postId, clerkUserId) => api.post(`/bookmarks/${postId}`, { clerkUserId });
+export const getUserBookmarks = (clerkUserId, params = {}) => api.get(`/bookmarks/${clerkUserId}`, { params });
+export const checkBookmark = (postId, clerkUserId) => api.get(`/bookmarks/${postId}/check/${clerkUserId}`);
+export const removeBookmark = (bookmarkId, clerkUserId) => api.delete(`/bookmarks/${bookmarkId}`, { params: { clerkUserId } });
+
 export default api;

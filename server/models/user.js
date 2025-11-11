@@ -30,6 +30,15 @@ const userSchema = new mongoose.Schema(
     profileImageUrl: {
       type: String,
     },
+    role: {
+      type: String,
+      enum: ['USER', 'ADMIN'],
+      default: 'USER'
+    },
+    subscription: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Subscription'
+    }
   },
   { timestamps: true }
 );
