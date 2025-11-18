@@ -30,6 +30,30 @@ const postSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isPremium: {
+      type: Boolean,
+      default: false,
+    },
+    approvalStatus: {
+      type: String,
+      enum: ['PENDING', 'APPROVED', 'REJECTED'],
+      default: 'PENDING'
+    },
+    rejectionReason: {
+      type: String
+    },
+    likeCount: {
+      type: Number,
+      default: 0
+    },
+    commentCount: {
+      type: Number,
+      default: 0
+    },
+    viewCount: {
+      type: Number,
+      default: 0
+    }
   },
   { timestamps: true }
 );

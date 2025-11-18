@@ -1,44 +1,105 @@
-import React from 'react';
-import { SignUpButton } from '@clerk/clerk-react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useUser, SignUpButton } from '@clerk/clerk-react';
+import { getSubscription, initializeSubscription } from '../services/api';
 
 const PricingPage = () => {
+  const { user, isSignedIn } = useUser();
+  const navigate = useNavigate();
+
+  const [subscription, setSubscription] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [purchasing, setPurchasing] = useState(false);
+
+  useEffect(() => {
+    if (isSignedIn && user) {
+      fetchSubscription();
+    }
+  }, [isSignedIn, user]);
+
+  const fetchSubscription = async () => {
+    try {
+      setLoading(true);
+      const response = await getSubscription(user.id);
+      setSubscription(response.data.data);
+    } catch (error) {
+      console.error('Error fetching subscription:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubscribe = async (planName) => {
+    if (!isSignedIn) {
+      // Will be handled by SignUpButton
+      return;
+    }
+
+    if (planName === 'Free') {
+      // Free plan - just redirect to home
+      navigate('/');
+      return;
+    }
+
+    try {
+      setPurchasing(true);
+
+      const tier = planName.toUpperCase();
+      const response = await initializeSubscription({
+        clerkUserId: user.id,
+        email: user.primaryEmailAddress.emailAddress,
+        tier
+      });
+
+      // Redirect to Paystack payment page
+      window.location.href = response.data.data.paymentUrl;
+    } catch (error) {
+      console.error('Error initializing subscription:', error);
+      alert('Failed to initialize payment. Please try again.');
+    } finally {
+      setPurchasing(false);
+    }
+  };
+
   const plans = [
     {
       name: 'Free',
-      price: '$0',
+      tier: 'FREE',
+      price: 'KES 0',
       period: 'forever',
       description: 'Perfect for getting started with mindfulness',
       features: [
-        '10 guided meditations',
-        'Basic progress tracking',
+        'Access to basic blog posts',
         'Community access',
         'Weekly newsletter',
-        'Mobile app access'
+        'Mobile app access',
+        '0 e-book credits'
       ],
       cta: 'Get Started',
       popular: false
     },
     {
       name: 'Premium',
-      price: '$12',
+      tier: 'PREMIUM',
+      price: 'KES 1,200',
       period: 'per month',
       description: 'Everything you need for a complete practice',
       features: [
-        'Unlimited guided meditations',
-        'Advanced progress tracking',
-        'Personalized recommendations',
+        'All Free features',
+        'Access to premium posts',
         'Downloadable sessions',
         'Priority support',
         'Ad-free experience',
-        'Sleep stories & sounds',
-        'Expert Q&A access'
+        '10 e-book credits/month',
+        'Early access to new content'
       ],
-      cta: 'Start Free Trial',
+      cta: 'Subscribe Now',
       popular: true
     },
     {
       name: 'Lifetime',
-      price: '$299',
+      tier: 'LIFETIME',
+      price: 'KES 29,900',
       period: 'one-time',
       description: 'Pay once, access forever',
       features: [
@@ -48,8 +109,8 @@ const PricingPage = () => {
         'Exclusive content',
         'Early feature access',
         'VIP community',
-        '1-on-1 wellness consultation',
-        'Gift 3 premium accounts'
+        '50 e-book credits (one-time)',
+        '1-on-1 wellness consultation'
       ],
       cta: 'Buy Lifetime Access',
       popular: false
@@ -65,8 +126,21 @@ const PricingPage = () => {
             Simple, <span className="text-[#4a7c59]">Transparent</span> Pricing
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Choose the plan that fits your wellness journey. All plans include a 14-day free trial.
+            Choose the plan that fits your wellness journey and get access to premium content.
           </p>
+          {isSignedIn && subscription && (
+            <div className="mt-4 inline-block bg-white rounded-lg px-6 py-3 shadow-md">
+              <p className="text-sm text-gray-600">Current Plan:</p>
+              <p className="text-lg font-bold text-[#4a7c59]">
+                {subscription.tier}
+                {subscription.credits > 0 && (
+                  <span className="ml-3 text-sm text-gray-600">
+                    ({subscription.credits} credits available)
+                  </span>
+                )}
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -128,17 +202,38 @@ const PricingPage = () => {
                 ))}
               </ul>
 
-              <SignUpButton mode="modal">
+              {!isSignedIn ? (
+                <SignUpButton mode="modal">
+                  <button
+                    className={`w-full py-3 rounded-full font-semibold transition-all ${
+                      plan.popular
+                        ? 'bg-white text-[#4a7c59] hover:bg-gray-100'
+                        : 'bg-[#4a7c59] text-white hover:bg-[#3d6b4a]'
+                    }`}
+                  >
+                    {plan.cta}
+                  </button>
+                </SignUpButton>
+              ) : subscription && subscription.tier === plan.tier ? (
                 <button
-                  className={`w-full py-3 rounded-full font-semibold transition-all ${
+                  disabled
+                  className="w-full py-3 rounded-full font-semibold bg-gray-300 text-gray-600 cursor-not-allowed"
+                >
+                  Current Plan
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleSubscribe(plan.name)}
+                  disabled={purchasing}
+                  className={`w-full py-3 rounded-full font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
                     plan.popular
                       ? 'bg-white text-[#4a7c59] hover:bg-gray-100'
                       : 'bg-[#4a7c59] text-white hover:bg-[#3d6b4a]'
                   }`}
                 >
-                  {plan.cta}
+                  {purchasing ? 'Processing...' : plan.cta}
                 </button>
-              </SignUpButton>
+              )}
             </div>
           ))}
         </div>

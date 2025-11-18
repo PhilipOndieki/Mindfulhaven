@@ -12,6 +12,7 @@ const Header = () => {
     { path: '/enterprise', label: 'Enterprise' },
     { path: '/pricing', label: 'Pricing' },
     { path: '/blog', label: 'Blog' },
+    { path: '/ebooks', label: 'E-books' },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -68,6 +69,16 @@ const Header = () => {
               </SignUpButton>
             </SignedOut>
             <SignedIn>
+              <Link
+                to="/profile"
+                className={`text-sm font-medium p-3 transition-colors ${
+                  isActive('/profile')
+                    ? 'text-primary'
+                    : 'text-gray-600 hover:text-primary'
+                }`}
+              >
+                Profile
+              </Link>
               <Link
                 to="/blog/create"
                 className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-primary p-3 transition-colors"
