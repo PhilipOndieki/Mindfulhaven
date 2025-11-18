@@ -645,7 +645,3 @@ This project is created for educational purposes as part of the PLP MERN Stack c
 - The open-source community for amazing tools and libraries
 
 ---
-
-**Assignment Completed:** Week 4 - Deep Dive into MERN Stack Integration
-
-*This README demonstrates the implementation of a full-stack MERN application with proper documentation, setup instructions, API documentation, and feature completion as required by the assignment objectives.*
