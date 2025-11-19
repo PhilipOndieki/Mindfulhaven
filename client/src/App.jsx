@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { SignIn, SignUp } from '@clerk/clerk-react';
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
 import BlogPage from './pages/BlogPage';
@@ -52,6 +53,9 @@ function App() {
 
           {/* Admin Dashboard */}
           <Route path="admin" element={<AdminDashboard />} />
+          {/* Clerk Auth Routes */}
+          <Route path="/sign-in/*" element={<SignIn routing="path" path="/sign-in" />} />
+          <Route path="/sign-up/*" element={<SignUp routing="path" path="/sign-up" />} />
         </Route>
       </Routes>
     </Router>
