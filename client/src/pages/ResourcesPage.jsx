@@ -371,7 +371,7 @@ const ResourcesPage = () => {
                 {/* Category Badge */}
                 <div className="mb-3">
                   <span className="inline-block px-3 py-1 text-xs font-semibold text-[#4a7c59] bg-[#e8f5e9] rounded-full">
-                    {post.category || 'Wellness'}
+                    {post.category?.name || 'Wellness'}
                   </span>
                 </div>
 
