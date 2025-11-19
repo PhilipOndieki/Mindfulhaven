@@ -75,9 +75,6 @@ const Footer = () => {
             <p className="text-sm text-gray-600">
               &copy; {new Date().getFullYear()} Mindful Haven. All rights reserved.
             </p>
-            <div className="flex items-center gap-4 text-sm text-gray-500">
-              <span>Built with care for Kenyan students</span>
-            </div>
           </div>
         </div>
       </div>
