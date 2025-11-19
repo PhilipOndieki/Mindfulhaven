@@ -5,9 +5,10 @@ import HomePage from './pages/HomePage';
 import BlogPage from './pages/BlogPage';
 import PostPage from './pages/PostPage';
 import AboutPage from './pages/AboutPage';
-import FeaturesPage from './pages/FeaturesPage';
-import EnterprisePage from './pages/EnterprisePage';
-import PricingPage from './pages/PricingPage';
+import HowItWorksPage from './pages/HowItWorksPage';
+import ForUniversitiesPage from './pages/ForUniversitiesPage';
+import CommunityPage from './pages/CommunityPage';
+import ResourcesPage from './pages/ResourcesPage';
 import CreatePostPage from './pages/CreatePostPage';
 import EditPostPage from './pages/EditPostPage';
 import EbooksPage from './pages/EbooksPage';
@@ -25,15 +26,19 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
-          <Route path="features" element={<FeaturesPage />} />
-          <Route path="enterprise" element={<EnterprisePage />} />
-          <Route path="pricing" element={<PricingPage />} />
+          <Route path="how-it-works" element={<HowItWorksPage />} />
+          <Route path="for-universities" element={<ForUniversitiesPage />} />
+          <Route path="community" element={<CommunityPage />} />
 
-          {/* Blog Routes */}
-          <Route path="blog" element={<BlogPage />} />
-          <Route path="blog/create" element={<CreatePostPage />} />
+          {/* Resources Routes (formerly Blog) */}
+          <Route path="resources" element={<ResourcesPage />} />
+          <Route path="resources/create" element={<CreatePostPage />} />
+          <Route path="resources/:id" element={<PostPage />} />
+          <Route path="resources/edit/:id" element={<EditPostPage />} />
+
+          {/* Legacy Blog Routes - Redirect to Resources */}
+          <Route path="blog" element={<ResourcesPage />} />
           <Route path="blog/:id" element={<PostPage />} />
-          <Route path="/blog/edit/:id" element={<EditPostPage />} />
 
           {/* E-book Routes */}
           <Route path="ebooks" element={<EbooksPage />} />
