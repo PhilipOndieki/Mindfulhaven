@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { getAdminStats } from '../../services/api';
+import AnimatedCounter from '../AnimatedCounter';
 
 const AdminOverview = () => {
   const { user } = useUser();
@@ -149,7 +150,16 @@ const AdminOverview = () => {
 
             <h3 className="text-gray-600 text-sm font-medium mb-1">{stat.title}</h3>
             <p className="text-3xl font-bold text-gray-800">
-              {typeof stat.value === 'number' ? stat.value.toLocaleString() : stat.value}
+              {stat.title === 'Total Revenue' ? (
+                <AnimatedCounter
+                  value={stats.totalRevenue}
+                  formatValue={(val) => formatCurrency(val)}
+                />
+              ) : typeof stat.value === 'number' ? (
+                <AnimatedCounter value={stat.value} />
+              ) : (
+                stat.value
+              )}
             </p>
           </div>
         ))}

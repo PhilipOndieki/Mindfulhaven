@@ -3,7 +3,6 @@ import { useUser } from '@clerk/clerk-react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import {
   getPosts,
-  getUserPurchases,
   getSubscription,
   getUserBookmarks,
   cancelSubscription
@@ -16,7 +15,6 @@ const ProfilePage = () => {
 
   const [activeTab, setActiveTab] = useState(searchParams.get('tab') || 'posts');
   const [myPosts, setMyPosts] = useState([]);
-  const [purchases, setPurchases] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
   const [subscription, setSubscription] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -54,11 +52,6 @@ const ProfilePage = () => {
         case 'subscription':
           const subResponse = await getSubscription(user.id);
           setSubscription(subResponse.data.data);
-          break;
-
-        case 'purchases':
-          const purchasesResponse = await getUserPurchases(user.id);
-          setPurchases(purchasesResponse.data.data);
           break;
 
         case 'bookmarks':
@@ -103,13 +96,6 @@ const ProfilePage = () => {
       month: 'long',
       day: 'numeric'
     }).format(new Date(dateString));
-  };
-
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-KE', {
-      style: 'currency',
-      currency: 'KES'
-    }).format(price);
   };
 
   if (!isSignedIn) {
@@ -157,16 +143,6 @@ const ProfilePage = () => {
             }`}
           >
             Subscription
-          </button>
-          <button
-            onClick={() => changeTab('purchases')}
-            className={`px-6 py-3 font-semibold whitespace-nowrap ${
-              activeTab === 'purchases'
-                ? 'border-b-2 border-primary text-primary'
-                : 'text-gray-600 hover:text-gray-800'
-            }`}
-          >
-            Purchases
           </button>
           <button
             onClick={() => changeTab('bookmarks')}
@@ -347,68 +323,6 @@ const ProfilePage = () => {
                       >
                         View Plans
                       </Link>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Purchases Tab */}
-              {activeTab === 'purchases' && (
-                <div>
-                  <h2 className="text-xl font-bold text-gray-800 mb-4">
-                    E-book Purchases
-                  </h2>
-
-                  {purchases.length === 0 ? (
-                    <div className="text-center py-8">
-                      <p className="text-gray-600 mb-4">
-                        You haven't purchased any e-books yet.
-                      </p>
-                      <Link
-                        to="/ebooks"
-                        className="inline-block bg-primary text-white px-6 py-2 rounded hover:bg-primary-dark transition"
-                      >
-                        Browse E-books
-                      </Link>
-                    </div>
-                  ) : (
-                    <div className="grid md:grid-cols-2 gap-4">
-                      {purchases.map((purchase) => (
-                        <div
-                          key={purchase._id}
-                          className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition"
-                        >
-                          <div className="flex gap-4">
-                            <img
-                              src={purchase.ebook.coverImage}
-                              alt={purchase.ebook.title}
-                              className="w-20 h-28 object-cover rounded"
-                            />
-                            <div className="flex-1">
-                              <h3 className="font-semibold text-gray-800 mb-1">
-                                {purchase.ebook.title}
-                              </h3>
-                              <p className="text-sm text-gray-600 mb-2">
-                                by {purchase.ebook.author}
-                              </p>
-                              <p className="text-xs text-gray-500 mb-2">
-                                Purchased: {formatDate(purchase.createdAt)}
-                              </p>
-                              <p className="text-sm font-semibold text-primary mb-2">
-                                {purchase.purchaseType === 'CREDITS'
-                                  ? `${purchase.amount} credits`
-                                  : formatPrice(purchase.amount)}
-                              </p>
-                              <Link
-                                to={`/ebooks/${purchase.ebook._id}`}
-                                className="inline-block bg-primary text-white px-4 py-1 rounded text-sm hover:bg-primary-dark transition"
-                              >
-                                View & Download
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
                     </div>
                   )}
                 </div>

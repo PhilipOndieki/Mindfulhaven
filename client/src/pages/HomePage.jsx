@@ -42,78 +42,99 @@ const HomePage = () => {
           </svg>
         </div>
 
-        <div className="container mx-auto px-6 py-20 md:py-32 text-center relative z-10">
-          {/* Main Heading */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-            Discover{' '}
-            <span className="text-[#4a7c59] relative">
-              Mindful
-              <svg
-                className="absolute -bottom-2 left-0 w-full"
-                height="8"
-                viewBox="0 0 200 8"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 4 Q50 0, 100 4 T200 4"
-                  stroke="#8db596"
-                  strokeWidth="3"
-                  fill="none"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>{' '}
-            Living
-          </h1>
+        <div className="container mx-auto px-6 py-20 md:py-32 relative z-10">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Text Content */}
+            <div className="text-center md:text-left">
+              {/* Main Heading */}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                Discover{' '}
+                <span className="text-[#4a7c59] relative">
+                  Mindful
+                  <svg
+                    className="absolute -bottom-2 left-0 w-full"
+                    height="8"
+                    viewBox="0 0 200 8"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 4 Q50 0, 100 4 T200 4"
+                      stroke="#8db596"
+                      strokeWidth="3"
+                      fill="none"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </span>{' '}
+                Living
+              </h1>
 
-          {/* Description */}
-          <p className="mt-8 max-w-2xl mx-auto text-base md:text-lg text-gray-600 leading-relaxed">
-            Built for wellness enthusiasts and mental health professionals alike,
-            Mindful Haven offers personalized programs, guided meditations, and
-            community support. Start your journey toward a balanced life with
-            confidence.
-          </p>
+              {/* Description */}
+              <p className="mt-8 max-w-2xl text-base md:text-lg text-gray-600 leading-relaxed">
+                Built for wellness enthusiasts and mental health professionals alike,
+                Mindful Haven offers personalized programs, guided meditations, and
+                community support. Start your journey toward a balanced life with
+                confidence.
+              </p>
 
-          {/* CTA Button */}
-          <div className="mt-10">
-            <SignUpButton mode="modal">
-              <button className="group bg-[#4a7c59] text-white font-semibold rounded-full px-8 py-4 hover:bg-[#3d6b4a] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 inline-flex items-center gap-2">
-                Get Started
-                <svg
-                  className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                  />
-                </svg>
-              </button>
-            </SignUpButton>
-          </div>
+              {/* CTA Button */}
+              <div className="mt-10">
+                <SignUpButton mode="modal">
+                  <button className="group bg-[#4a7c59] text-white font-semibold rounded-full px-8 py-4 hover:bg-[#3d6b4a] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 inline-flex items-center gap-2">
+                    Get Started
+                    <svg
+                      className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"
+                      />
+                    </svg>
+                  </button>
+                </SignUpButton>
+              </div>
 
-          {/* Social Proof */}
-          <div className="mt-12 flex flex-col sm:flex-row justify-center items-center gap-4">
-            <div className="flex -space-x-3">
-              {[1, 2, 3, 4].map((i) => (
-                <div
-                  key={i}
-                  className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8db596] to-[#4a7c59] ring-2 ring-white flex items-center justify-center text-white font-semibold text-sm"
-                >
-                  {String.fromCharCode(64 + i)}
+              {/* Social Proof */}
+              <div className="mt-12 flex flex-col sm:flex-row justify-center md:justify-start items-center gap-4">
+                <div className="flex -space-x-3">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div
+                      key={i}
+                      className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8db596] to-[#4a7c59] ring-2 ring-white flex items-center justify-center text-white font-semibold text-sm"
+                    >
+                      {String.fromCharCode(64 + i)}
+                    </div>
+                  ))}
+                  <div className="w-10 h-10 rounded-full bg-gray-200 ring-2 ring-white flex items-center justify-center text-gray-600 font-semibold text-xs">
+                    +15K
+                  </div>
                 </div>
-              ))}
-              <div className="w-10 h-10 rounded-full bg-gray-200 ring-2 ring-white flex items-center justify-center text-gray-600 font-semibold text-xs">
-                +15K
+                <div className="text-sm text-gray-600">
+                  Trusted by{' '}
+                  <strong className="text-gray-900">15,000+</strong> Mindful Users
+                </div>
               </div>
             </div>
-            <div className="text-sm text-gray-600">
-              Trusted by{' '}
-              <strong className="text-gray-900">15,000+</strong> Mindful Users
+
+            {/* Right Column - Hero Image */}
+            <div className="hidden md:block">
+              <div className="relative">
+                <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl">
+                  <img
+                    src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=600&fit=crop"
+                    alt="Person meditating in peaceful nature setting"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                {/* Decorative Element */}
+                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-[#8db596] rounded-full opacity-20 blur-2xl"></div>
+                <div className="absolute -top-6 -left-6 w-24 h-24 bg-[#4a7c59] rounded-full opacity-20 blur-2xl"></div>
+              </div>
             </div>
           </div>
         </div>

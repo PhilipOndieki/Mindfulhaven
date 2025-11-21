@@ -193,9 +193,22 @@ const ResourcesPage = () => {
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-2">
             Expert articles, guides, and tools for Kenyan university students
           </p>
-          <p className="text-gray-500">
+          <p className="text-gray-500 mb-6">
             Evidence-based content to support your mental health journey.
           </p>
+
+          {/* Donation Button */}
+          <div className="flex justify-center">
+            <Link
+              to="/donate"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#4a7c59] to-[#3d6b4a] text-white font-semibold rounded-full px-8 py-3 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+              Support Our Mission
+            </Link>
+          </div>
         </div>
       </div>
 

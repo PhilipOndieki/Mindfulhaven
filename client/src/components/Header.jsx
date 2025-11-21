@@ -42,13 +42,16 @@ const Header = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`text-sm font-medium p-3 transition-colors ${
+                className={`relative text-sm font-medium p-3 transition-colors ${
                   isActive(link.path)
                     ? 'text-primary'
                     : 'text-gray-600 hover:text-primary'
                 }`}
               >
                 {link.label}
+                {isActive(link.path) && (
+                  <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-primary rounded-full"></span>
+                )}
               </Link>
             ))}
           </div>
